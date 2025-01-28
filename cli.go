@@ -11,6 +11,8 @@ type CLI struct{}
 
 // This function will run the CLI
 func (cli *CLI) Run() {
+	cli.validateArgs(os.Args)
+
 	listProvidersCmd := flag.NewFlagSet("listproviders", flag.ExitOnError)
 	listExamsCmd := flag.NewFlagSet("listexams", flag.ExitOnError)
 	saveDiscussionsCmd := flag.NewFlagSet("savediscussions", flag.ExitOnError)
@@ -91,5 +93,6 @@ func (cli *CLI) printUsage() {
 func (cli *CLI) validateArgs(args []string) {
 	if len(args) < 2 {
 		cli.printUsage()
+		os.Exit(1)
 	}
 }
