@@ -8,6 +8,16 @@ package main
 import "fmt"
 
 func (cli *CLI) listExams(provider string) {
-	fmt.Println("Listing the exams offered by the provider: ", provider)
+	fmt.Printf("Listing the exams offered by the provider: %s\n\n", provider)
 
+	// TODO: Implement the code to validate that provider is valid
+
+	exams := ExamScraper(provider)
+
+	fmt.Printf("%-4s  %-100s %s\n", "[Index]", "[Exam Name]", "[Exam Link]")
+
+	for index, exam := range exams {
+		indexPlusDot := fmt.Sprintf("%d.", index+1)
+		fmt.Printf("%-4s      %-100s %s\n", indexPlusDot, exam.String(), exam.Link())
+	}
 }
