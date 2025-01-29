@@ -35,16 +35,13 @@ func ExamScraper(provider string) []Exam {
 	ProviderListLink := os.Getenv("EXAMTOPICS_EXAM_URL") + provider + "/"
 
 	resp, err := http.Get(ProviderListLink)
-	if err != nil || resp.StatusCode != 200 {
-		panic(err)
-	}
+	HandleError(err)
+	HandleStatusCodeError(resp)
 
 	defer resp.Body.Close()
 
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
-	if err != nil {
-		panic(err)
-	}
+	HandleError(err)
 
 	doc.Find("body > div.sec-spacer > div:nth-child(1) > div:nth-child(2) > div > ul > li").Each(func(i int, s *goquery.Selection) {
 		examName := s.Find("span").Text()
