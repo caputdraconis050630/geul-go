@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 
@@ -15,10 +16,11 @@ type PROVIDER struct {
 	NumOfExams   int
 }
 
-const ProviderListLink = "https://www.examtopics.com/exams/"
-const ExamListBaseLink = "https://www.examtopics.com"
-
 func ProviderScraper() []PROVIDER {
+	// env
+	ExamListBaseLink := os.Getenv("EXAMTOPICS_BASE_URL")
+	ProviderListLink := os.Getenv("EXAMTOPICS_EXAM_URL")
+
 	providers := []PROVIDER{}
 	resp, err := http.Get(ProviderListLink)
 	if err != nil || resp.StatusCode != 200 {
