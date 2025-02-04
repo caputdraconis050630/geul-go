@@ -29,3 +29,5 @@ go.work.sum
 *.txt
 *.pdf
 
+# related with idea
+.idea
