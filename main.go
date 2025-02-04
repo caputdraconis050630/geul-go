@@ -1,9 +1,8 @@
 package main
 
 import (
-	"log"
-
 	"github.com/joho/godotenv"
+	"log"
 )
 
 func main() {
