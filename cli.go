@@ -23,7 +23,8 @@ func (cli *CLI) Run() {
 	saveDiscussionsExam := saveDiscussionsCmd.String("exam", "", "The exam code")
 	saveExamProvider := saveExamCmd.String("provider", "", "The provider of the exams")
 	saveExamExamCode := saveExamCmd.String("exam", "", "The exam code")
-	saveExamFilename := saveExamCmd.String("filename", "", "The filename to save the exam to")
+	saveExamImport := saveExamCmd.String("import", "", "The filename to get the exam discussion links(output of savediscussions feature)")
+	saveExamExport := saveExamCmd.String("export", "", "The filename to save the exam to")
 
 	switch os.Args[1] {
 	case "listproviders":
@@ -72,11 +73,11 @@ func (cli *CLI) Run() {
 	}
 
 	if saveExamCmd.Parsed() {
-		if *saveExamProvider == "" || *saveExamExamCode == "" || *saveExamFilename == "" {
+		if *saveExamProvider == "" || *saveExamExamCode == "" || *saveExamImport == "" || *saveExamExport == "" {
 			saveExamCmd.Usage()
 			os.Exit(1)
 		}
-		cli.saveExam(*saveExamProvider, *saveExamExamCode, *saveExamFilename)
+		cli.saveExam(*saveExamProvider, *saveExamExamCode, *saveExamImport, *saveExamExport)
 	}
 }
 
@@ -86,7 +87,7 @@ func (cli *CLI) printUsage() {
 	fmt.Println("  listproviders - List the providers of exams offered by examtopics.")
 	fmt.Println("  listexams -provider PROVIDER - List the exams offered by the specific provider.")
 	fmt.Println("  savediscussions -provider PROVIDER -exam EXAMCODE - Save the discussion links of the exam to a text file.")
-	fmt.Println("  saveexam -provider PROVIDER -exam EXAM_CODE -filename FILENAME - Save the exam to a pdf file.")
+	fmt.Println("  saveexam -provider PROVIDER -exam EXAM_CODE -import FILENAME -export FILENAME - Save the exam to a pdf file.")
 }
 
 // This function will list the providers of exams offered by examtopics
