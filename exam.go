@@ -15,15 +15,7 @@ type Exam struct {
 	ExamMostVoted string // 정답으로 간주
 }
 
-func (exam *Exam) String() string {
-	return exam.ExamName
-}
-
-func (exam *Exam) Link() string {
-	return exam.ExamLink
-}
-
-func ExamScraper(provider string) []Exam {
+func ExamListScraper(provider string) []Exam {
 	exams := []Exam{}
 
 	BaseLink := os.Getenv("EXAMTOPICS_BASE_URL")
