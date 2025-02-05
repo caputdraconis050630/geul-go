@@ -13,13 +13,6 @@ import (
 	"github.com/gofiber/fiber/v2/log"
 )
 
-const (
-	maxConcurrent = 5
-	httpTimeout   = 30 * time.Second
-	maxRetries    = 3
-	retryDelay    = 5 * time.Second
-)
-
 func DiscussionScraper(provider string, examCode string) ([]string, error) {
 	log.Infof("Starting DiscussionScraper for provider: %s, examCode: %s", provider, examCode)
 
@@ -40,7 +33,7 @@ func DiscussionScraper(provider string, examCode string) ([]string, error) {
 		go func(workerID int) {
 			defer wg.Done()
 			log.Infof("Worker %d started", workerID)
-			worker(ctx, jobs, results, examCode, workerID)
+			discussionWorker(ctx, jobs, results, examCode, workerID)
 			log.Infof("Worker %d finished", workerID)
 		}(i)
 	}
@@ -84,7 +77,7 @@ func DiscussionScraper(provider string, examCode string) ([]string, error) {
 	return discussions, nil
 }
 
-func worker(ctx context.Context, jobs <-chan string, results chan<- []string, examCode string, workerID int) {
+func discussionWorker(ctx context.Context, jobs <-chan string, results chan<- []string, examCode string, workerID int) {
 	for url := range jobs {
 		for attempt := 1; attempt <= maxRetries; attempt++ {
 			log.Infof("Worker %d processing URL: %s (Attempt %d/%d)", workerID, url, attempt, maxRetries)
