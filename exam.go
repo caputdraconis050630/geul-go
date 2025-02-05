@@ -8,8 +8,11 @@ import (
 )
 
 type Exam struct {
-	ExamName string
-	ExamLink string
+	ExamName      string
+	ExamLink      string
+	ExamQuestion  string
+	ExamChoices   string
+	ExamMostVoted string // 정답으로 간주
 }
 
 func (exam *Exam) String() string {
@@ -18,14 +21,6 @@ func (exam *Exam) String() string {
 
 func (exam *Exam) Link() string {
 	return exam.ExamLink
-}
-
-func (exam *Exam) SetName(name string) {
-	exam.ExamName = name
-}
-
-func (exam *Exam) SetLink(link string) {
-	exam.ExamLink = link
 }
 
 func ExamScraper(provider string) []Exam {
