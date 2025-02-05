@@ -1,12 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gofiber/fiber/v2/log"
 )
 
 func (cli *CLI) saveExam(provider string, examCode string, importFilename string, exportFilename string) {
-	fmt.Println("Saving the %s.%s exam to a %s.pdf file", provider, examCode, exportFilename)
+	log.Info("Saving exam...")
 
 	// importFilename 으로부터 discussions links 긁어오기
 	links, err := ReadFile(importFilename)
