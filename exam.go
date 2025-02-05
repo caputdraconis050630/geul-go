@@ -15,6 +15,12 @@ type Exam struct {
 	ExamMostVoted string // 정답으로 간주
 }
 
+func ExamScraper(links []string) ([]Exam, error) {
+	exams := []Exam{}
+
+	return exams, nil // Dummy
+}
+
 func ExamListScraper(provider string) []Exam {
 	exams := []Exam{}
 
