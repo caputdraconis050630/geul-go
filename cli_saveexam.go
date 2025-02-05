@@ -14,7 +14,7 @@ func (cli *CLI) saveExam(provider string, examCode string, importFilename string
 		panic(err)
 	}
 
-	// Main Logic
+	// Scrape
 	examSet, err := ExamScraper(links)
 	if err != nil {
 		panic(err)
