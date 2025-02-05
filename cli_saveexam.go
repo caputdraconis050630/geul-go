@@ -12,6 +12,9 @@ func (cli *CLI) saveExam(provider string, examCode string, importFilename string
 	if err != nil {
 		panic(err)
 	}
+	//for _, link := range links {
+	//	fmt.Println(link)
+	//}
 
 	// Scrape
 	examSet, err := ExamScraper(links)
@@ -21,5 +24,5 @@ func (cli *CLI) saveExam(provider string, examCode string, importFilename string
 
 	// PDF 파일로 저장
 	Export2PDF(examSet, exportFilename)
-	log.Info("Saved the %s exam to a %s.pdf file", provider, exportFilename)
+	log.Infof("Saved the %s's %s exam to a %s", provider, examCode, exportFilename)
 }
