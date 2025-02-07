@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2/log"
 )
 
-func (cli *CLI) saveExam(provider string, examCode string, importFilename string, exportFilename string) {
+func (cli *CLI) saveExam(importFilename string, exportFilename string) {
 	log.Info("Saving exam...")
 
 	// importFilename 으로부터 discussions links 긁어오기
@@ -24,5 +24,5 @@ func (cli *CLI) saveExam(provider string, examCode string, importFilename string
 
 	// PDF 파일로 저장
 	Export2PDF(examSet, exportFilename)
-	log.Infof("Saved the %s's %s exam to a %s", provider, examCode, exportFilename)
+	log.Infof("Saved the Exam to %s", exportFilename)
 }

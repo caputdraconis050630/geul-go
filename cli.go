@@ -21,8 +21,6 @@ func (cli *CLI) Run() {
 	listExamsProvider := listExamsCmd.String("provider", "", "The provider of the exams")
 	saveDiscussionsProvider := saveDiscussionsCmd.String("provider", "", "The provider of the exams")
 	saveDiscussionsExam := saveDiscussionsCmd.String("exam", "", "The exam code")
-	saveExamProvider := saveExamCmd.String("provider", "", "The provider of the exams")
-	saveExamExamCode := saveExamCmd.String("exam", "", "The exam code")
 	saveExamImport := saveExamCmd.String("import", "", "The filename to get the exam discussion links(output of savediscussions feature)")
 	saveExamExport := saveExamCmd.String("export", "", "The filename to save the exam to")
 
@@ -73,11 +71,11 @@ func (cli *CLI) Run() {
 	}
 
 	if saveExamCmd.Parsed() {
-		if *saveExamProvider == "" || *saveExamExamCode == "" || *saveExamImport == "" || *saveExamExport == "" {
+		if *saveExamImport == "" || *saveExamExport == "" {
 			saveExamCmd.Usage()
 			os.Exit(1)
 		}
-		cli.saveExam(*saveExamProvider, *saveExamExamCode, *saveExamImport, *saveExamExport)
+		cli.saveExam(*saveExamImport, *saveExamExport)
 	}
 }
 
