@@ -149,20 +149,21 @@ func GetExamSet(link string) (Exam, error) {
 			// span 요소와 텍스트 노드 분리 추출
 			clone := s.Clone()
 			index := clone.Find("span.multi-choice-letter").Text()
-			clone.Find("span.multi-choice-letter").Remove()
 			text := strings.TrimSpace(clone.Text())
-			if clone.Has("span.badge.badge-success.most-voted-answer-badge").Length() > 0 {
-				exam.ExamMostVoted = index
-			}
+
+			// MostVoted parsing logic
+			//if clone.Has("span.badge.badge-success.most-voted-answer-badge").Length() > 0 {
+			//	exam.ExamMostVoted = index
+			//}
+			clone.Remove()
+
 			return index + " " + text
 		})
 		answer := parentDiv.Find("div.question-choices-container > ul > li.multi-choice-item.correct-hidden > span").Text()
-		// mostVoted := parentDiv.Find("div.card-text.question-answer.bg-light.white-text > div > div > div.vote-bar.progress-bar.bg-primary").Text()
 
 		exam.ExamQuestion = question
 		exam.ExamChoices = choices
 		exam.ExamAnswer = answer
-		// exam.ExamMostVoted = mostVoted
 
 	})
 
