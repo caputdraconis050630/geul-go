@@ -148,7 +148,7 @@ func GetExamSet(link string) (Exam, error) {
 		choices := parentDiv.Find("div.question-choices-container ul li").Map(func(i int, s *goquery.Selection) string {
 			// span 요소와 텍스트 노드 분리 추출
 			clone := s.Clone()
-			index := clone.Find("span.multi-choice-letter").Text()
+			//index := clone.Find("span.multi-choice-letter").Text()
 			text := strings.TrimSpace(clone.Text())
 
 			// MostVoted parsing logic
@@ -156,14 +156,16 @@ func GetExamSet(link string) (Exam, error) {
 			//	exam.ExamMostVoted = index
 			//}
 			clone.Remove()
-
-			return index + " " + text
+			// log.Infof("Getting text: %s", text)
+			// return index + " " + text
+			return text // text에 이미 선지 인덱스 포함
 		})
 		answer := parentDiv.Find("div.question-choices-container > ul > li.multi-choice-item.correct-hidden > span").Text()
 
 		exam.ExamQuestion = question
 		exam.ExamChoices = choices
 		exam.ExamAnswer = answer
+		exam.ExamLink = link
 
 	})
 

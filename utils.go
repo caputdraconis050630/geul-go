@@ -88,8 +88,12 @@ func Export2PDF(exams []Exam, filename string) {
 
 		// 정답
 		pdf.SetFont("NotoSans", "B", 10)
-		pdf.Cell(0, 7, fmt.Sprintf("Answer: %s", exam.ExamAnswer))
+		pdf.Cell(0, 7, fmt.Sprintf("Answer: %s", cleanText(exam.ExamAnswer)))
+		pdf.Ln(5)
 
+		// Discussion Link
+		pdf.SetFont("NotoSans", "B", 6)
+		pdf.Cell(0, 7, fmt.Sprintf("Reference Link: %s", exam.ExamLink))
 	}
 
 	err := pdf.OutputFileAndClose(filename)
